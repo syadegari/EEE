@@ -1,0 +1,68 @@
+The structure of the folder is as follows:
+
+|
+|-- mpr-htessel-aux                                                                  
+`-- sim                                                                              
+    |-- default_sim                                                                  
+    |   |-- input                                                                    
+    |   `-- mpr_global_parameter.nml                                                 
+    |-- input_mask                                                                   
+    `-- mpr_param_range
+
+
+`mpr-htessel-aux`: This contains all the codes that are needed to create the simulations and parameters.dat
+`sim` [the name must be an input]: this is a root folder for a snesitivity study. Below it contains another folder with the "default simulation". The input files in this folder will be used to extract the deaults values for both mpr and htessel. It also contains forcing and executables for both programs. 
+`input_mask` and `mpr_param_range` [names are input, location is fixed]: These are the masks for the current study. they must be placed directly below the sim folder
+
+* Sample mask files
+** htessel mask sample
+ #+BEGIN_SRC f90
+   &NAMPARSNOW
+     RLEVSNMAX = Default 
+   /
+
+   &NAMPARVEG
+     RLHAEROS = Default
+     RVZ0M_SNOW = Default
+   /
+
+   &NAMPARAGS
+     RRESPFACTOR_NIT = Default
+   /
+
+   &NAMPARFLAKE
+     RDEPTH_W_MAX = Default
+     RW_STAR_EXP = .25, .40
+   /
+
+   &NAMPAREXC
+     RUGN = Default
+     RDZ0ICE = Default
+     RSALIN = Default
+   /
+ #+END_SRC
+
+** mpr mask sample
+ #+BEGIN_SRC f90
+   &params
+   ! this is a mask for mpr parameters
+   ! if Default is specified then default range around the value in the input file is taken
+   ! 
+   llamsk =  10.0 , 10000000000.0              
+   llamsks =  10.0 , 10000000000.0             
+   hlamsks =  10.0 , 10000000000.0             
+   lrvz0m =  0.0001 , 2.0                      
+   hrvz0m =  0.0001 , 2.0                      
+   lrvz0h =  1e-05 , 2.0                       
+   hrvz0h =  1e-05 , 2.0                       
+   lvegrsm =  0 , 250                          
+   hvegrsm =  0 , 250                          
+   lvegstr =  0.0 , 0.03                       
+   hvegstr =  0.0 , 0.03                       
+   lvegcov =  0.0 , 0.99                       
+   hvegcov =  0.0 , 0.99                       
+   vgalpha =  0.83 , 3.83                      
+   wcons =  2.63e-07 , 6.94e-06                
+   lambdam =  -2.3421 , 2.5                    
+   /
+ #+END_SRC
