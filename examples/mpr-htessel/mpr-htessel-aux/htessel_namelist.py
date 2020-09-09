@@ -1,6 +1,8 @@
 from abstract_namelist import AbstractNameList
 from typing import List
 
+flatten = lambda l: [item for sublist in l for item in sublist]
+
 
 class HTESSELNameList(AbstractNameList):
 
@@ -32,4 +34,7 @@ class HTESSELNameList(AbstractNameList):
         for name in self.nml.keys():
             if name.find('nampar') != -1:
                 l.append(list(self.nml[name].keys()))
-        return l
+        return flatten(l)
+
+
+
