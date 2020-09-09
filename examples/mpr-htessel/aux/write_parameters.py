@@ -1,8 +1,6 @@
-import f90nml as nml
 import numpy as np
 from mask import ParamMask
 import pickle
-import shutil
 import f90nml as nml
 from htessel_namelist import HTESSELNameList
 from mpr_namelist import MPRNameList
@@ -12,7 +10,6 @@ from util import merge_dict
 def write_paramset_uniform(f, pos, low, high, default, param_name, param_format, flag):
     pos_tag = "x_{" + f"{pos:{param_format}}" + f"}}   uniform  {low: .8e}   {high: .8e}   {default: .8e}   {flag: 2} # {param_name}\n"
     f.write(pos_tag)
-
 
 
 def write_parameters(sim_folder, htessel_mask, mpr_mask):

@@ -58,7 +58,7 @@ class ParamMask:
 
         """
         for par_name in self.mask_dict:
-            if self.mask_dict[par_name]['min'] == None:
+            if self.mask_dict[par_name]['min'] is None:
                 default_value = self.namelist[par_name]
                 if default_value >= 0:
                     self.mask_dict[par_name]['min'] = (1. - self.default_threshold / 2) * default_value

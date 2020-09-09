@@ -1,6 +1,7 @@
 from abstract_namelist import AbstractNameList
 from typing import List
 
+
 class MPRNameList(AbstractNameList):
 
     def __init__(self, namelist):
