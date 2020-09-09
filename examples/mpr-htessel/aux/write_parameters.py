@@ -22,8 +22,6 @@ def write_parameters(sim_folder, htessel_mask, mpr_mask):
 
     mask = merge_dict(htessel_mask, mpr_mask)
 
-    # mask_partition = merge_dict({par_name: 'mpr' for par_name in mpr_mask},
-    #                             {par_name: 'htessel' for par_name in htessel_mask})
     param_partition = merge_dict({par_name: 'mpr' for par_name in mpr_namelist.get_all_model_parameters()},
                                  {par_name: 'htessel' for par_name in htessel_namelist.get_all_model_parameters()})
     pickle.dump(param_partition, open(f'{sim_folder}/parameters_partition.pkl', 'wb'))
@@ -38,15 +36,24 @@ def write_parameters(sim_folder, htessel_mask, mpr_mask):
     for param_name in [*htessel_namelist.get_all_model_parameters(), *mpr_namelist.get_all_model_parameters()]:
 
         if param_name in mask:
+            default = mask[param_name]['default']
             low = mask[param_name]['min']
             high = mask[param_name]['max']
-            default = mask[param_name]['default']
             flag = 1
         else:
-            low = 0.0
-            high = 0.0
-            default = 0.0
-            flag = -1
+            if param_name in htessel_namelist.get_all_model_parameters():
+                default = htessel_namelist[param_name]
+                low = htessel_namelist[param_name]
+                high = htessel_namelist[param_name]
+                flag = -1
+            elif param_name in mpr_namelist.get_all_model_parameters():
+                default = mpr_namelist[param_name]
+                low = mpr_namelist[param_name]
+                high = mpr_namelist[param_name]
+                flag = -1
+            else:
+                raise Exception(f'parameter {param_name} is not found')
+
         write_paramset_uniform(f, ipos, low, high, default, param_name, param_format_number, flag)
         ipos += 1
     f.close()
