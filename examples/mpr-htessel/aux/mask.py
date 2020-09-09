@@ -2,6 +2,8 @@ from typing import Dict, List
 import f90nml as nml
 from abstract_namelist import AbstractNameList
 from util import is_list
+from util import bcolors
+
 
 def is_valid_range(list_two):
     return len(list_two) == 2 and list_two[0] <= list_two[1]
@@ -87,15 +89,18 @@ class ParamMask:
 
     def _lower_bound_eq_default(self, param):
         if self.mask_dict[param]['min'] == self.mask_dict[param]['default']:
-            print(f'min and default for parameter {param} are the same. Consider readjusting the values')
+            print(bcolors.WARNING + 'Warning: ' + bcolors.ENDC +
+                  f'min and default for parameter {param} are the same. Consider readjusting the values')
 
     def _upper_bound_eq_default(self, param):
         if self.mask_dict[param]['max'] == self.mask_dict[param]['default']:
-            print(f'max and default for parameter {param} are the same. Consider readjusting the values')
+            print(bcolors.WARNING + 'Warning: ' + bcolors.ENDC +
+                  f'max and default for parameter {param} are the same. Consider readjusting the values')
 
     def _all_eq(self, param):
         if self.mask_dict[param]['min'] == self.mask_dict[param]['max'] == self.mask_dict[param]['default']:
-            print(f'min, max and default for parameter {param} are the same. Consider readjusting the values')
+            print(bcolors.WARNING + 'Warning: ' + bcolors.ENDC +
+                  f'min, max and default for parameter {param} are the same. Consider readjusting the values')
 
     def check_values(self):
         for param in self.mask_dict:
