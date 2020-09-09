@@ -6,13 +6,7 @@ import shutil
 import f90nml as nml
 from htessel_namelist import HTESSELNameList
 from mpr_namelist import MPRNameList
-
-
-def merge_dict(dict1: dict, dict2: dict) -> dict:
-    d = {}
-    d.update(dict1)
-    d.update(dict2)
-    return d
+from util import merge_dict
 
 
 def write_paramset_uniform(f, pos, low, high, default, param_name, param_format):

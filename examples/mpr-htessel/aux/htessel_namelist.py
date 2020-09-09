@@ -1,9 +1,6 @@
 from abstract_namelist import AbstractNameList
 from typing import List
-
-
-def flatten(l):
-    return [item for sublist in l for item in sublist]
+from util import flatten
 
 
 class HTESSELNameList(AbstractNameList):

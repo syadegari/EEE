@@ -1,29 +1,10 @@
 from typing import Dict, List
 import f90nml as nml
 from abstract_namelist import AbstractNameList
-
-
-def warn_after_first_call(msg):
-    def f(func):
-        setattr(func, 'counter', 0)
-
-        def g(*args, **kwargs):
-            func.counter += 1
-            if func.counter > 1:
-                print(msg)
-            return func(*args, **kwargs)
-
-        return g
-
-    return f
-
+from util import is_list
 
 def is_valid_range(list_two):
     return len(list_two) == 2 and list_two[0] <= list_two[1]
-
-
-def is_list(list_two):
-    return type(list_two) == list
 
 
 class ParamMask:
