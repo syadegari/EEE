@@ -66,3 +66,19 @@ The structure of the folder is as follows:
    lambdam =  -2.3421 , 2.5                    
    /
  #+END_SRC
+
+
+* Install MPR and HTESSEL via some scripts
+
+- MPR
+  checkout a particular branch if necessary
+  get mpr.nml and mpr_global and copy them in the directory
+  cd to the directory
+  save PYTHONPATH and then unset it
+  run python -m src_python.pre_proc.update_tfs_in_fortran_source -p mpr_global
+  set PYTHONPATH again
+  run the build script 
+
+
+- HTESSEL
+  
