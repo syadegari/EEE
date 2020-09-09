@@ -37,7 +37,7 @@ class ParamMask:
     def read_mask(self) -> Dict:
         try:
             return self.read_mask_generic()
-        except FileNotFoundError:
+        except IsADirectoryError:
             param_list = self.namelist.get_all_model_parameters()
             return {k: {'min': None, 'max': None} for k in param_list}
 
