@@ -10,7 +10,7 @@ class HTESSELNameList(AbstractNameList):
         self.tag = 'input'
         self.nml.uppercase = True
 
-    def find(self, kw):
+    def __find__(self, kw):
         for section_name in self.nml.keys():
             for subsection_name in self.nml[section_name]:
                 if subsection_name == kw:
@@ -18,12 +18,12 @@ class HTESSELNameList(AbstractNameList):
         raise Exception(f'No {kw} where found in the given namelist file')
 
     def __getitem__(self, kw):
-        path1, path2 = self.find(kw)
+        path1, path2 = self.__find__(kw)
         return self.nml[path1][path2]
 
     def __setitem__(self, kw, value):
         if not self.read_only:
-            path1, path2 = self.find(kw)
+            path1, path2 = self.__find__(kw)
             self.nml[path1][path2] = value
         else:
             raise Exception(f'The namelist is readonly')

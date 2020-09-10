@@ -17,7 +17,7 @@ class AbstractNameList(ABC):
         raise NotImplemented
 
     @abstractmethod
-    def find(self, kw):
+    def __find__(self, kw):
         raise NotImplemented
 
     @abstractmethod
