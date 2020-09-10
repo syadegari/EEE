@@ -49,6 +49,12 @@ def param_set_split(param_set, param_partition):
 
     return param_mpr, param_htessel
 
+def special_treatments(nmlist):
+
+    if nmlist.tag == 'input':
+        nmlist['rez0ice'] = int(nmlist['rez0ice'])
+    return nmlist
+
 
 def write_namelists(working_dir):
 
@@ -94,6 +100,7 @@ def write_namelists(working_dir):
             for k, v in params.items():
                 nmlist[k] = v
 
+            nmlist = special_treatments(nmlist)
             nmlist.nml.write(nmlist.tag, force=True)
 
 
