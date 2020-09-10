@@ -9,6 +9,8 @@ class HTESSELNameList(AbstractNameList):
         super(HTESSELNameList, self).__init__(namelist)
         self.tag = 'input'
         self.nml.uppercase = True
+        self.paramsections = ['NAMPARAGS', 'NAMPARFLAKE',
+                              'NAMPARSNOW', 'NAMPARSOIL', 'NAMPARVEG']
 
     def __find__(self, kw):
         for section_name in self.nml.keys():
@@ -31,6 +33,6 @@ class HTESSELNameList(AbstractNameList):
     def get_all_model_parameters(self) -> List[str]:
         l = []
         for name in self.nml.keys():
-            if name.find('nampar') != -1:
+            if name.upper() in self.paramsections:
                 l.append(list(self.nml[name].keys()))
         return flatten(l)
