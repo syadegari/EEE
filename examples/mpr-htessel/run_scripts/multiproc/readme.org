@@ -1,0 +1,49 @@
+* collection of scripts to experiment with multiprocessing module and faualt-tolerant runs
+* main.py creates a number of folders each with a dummy simulation and the run script. Each simulation can fail with a 20% probability.
+* snippets
+
+  each process lasts 19 seconds (two sleeps each 9 secs) plus prints
+
+
+  #+BEGIN_SRC python
+  import time
+  import random
+
+  pause = 9
+  for i in range(1, 10):
+      print(i)
+
+  time.sleep(pause)
+
+  if random.random() > 0.80:
+      raise Exception(f'quitting the program because of a difficulty')
+
+  for i in range(1, 10):
+      print(i)
+
+  time.sleep(pause + 1)
+
+  print('finished executing the program')
+
+  #+END_SRC
+
+
+  - with 16 simulations we want to have 4 parallel executations and we want to pipe back the output and error into their folders.
+  - we want each simulation outputs to be stored in stdout and stderr stream files
+  - use subprocess to execute the script for the program
+
+  #+BEGIN_SRC python
+  from subprocess import Popen, PIPE
+  import os
+  import time
+
+  num_format = '02'
+  for i in range(1, 17):
+      folder_name = f'folder_{i:02}'
+      os.chdir(folder_name)
+      t1 = time.time()
+      p = Popen(['./script'], stdout=open('output', 'w'), stderr=open('error', 'w')).communicate()
+      t2 = time.time()
+      open('output', 'w').write(f'runetime took {t2 - t1} seconds')
+      os.chdir('..')
+  #+END_SRC

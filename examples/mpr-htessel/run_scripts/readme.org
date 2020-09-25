@@ -1,0 +1,8 @@
+* run_parallel.py
+  simulation runs for the sensitivity analysis 
+  put this in the iteration folder (iter_1 for example) and run it with 
+  sbatch parallel_run.py
+
+* time_example.py
+  a simple wrapper around Popen to time the running of the jobs with different number of threads. To run:
+  sbatch time_example.py
